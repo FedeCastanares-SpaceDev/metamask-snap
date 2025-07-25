@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { MetamaskState } from '../hooks';
 import { ReactComponent as FlaskFox } from '../assets/flask_fox.svg';
 import { shouldDisplayReconnectButton } from '../utils';
+import { Box } from '@mui/material';
 
 const Link = styled.a`
   display: flex;
@@ -38,6 +39,7 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   margin-top: auto;
+  width: 100%;
   ${({ theme }) => theme.mediaQueries.small} {
     width: 100%;
   }
@@ -45,6 +47,7 @@ const Button = styled.button`
 
 const ButtonText = styled.span`
   margin-left: 1rem;
+  text-wrap: nowrap;
 `;
 
 const ConnectedContainer = styled.div`
@@ -122,5 +125,43 @@ export const HeaderButtons = ({
       <ConnectedIndicator />
       <ButtonText>Connected</ButtonText>
     </ConnectedContainer>
+  );
+};
+
+export const ProtectButton = (props: ComponentProps<typeof Button>) => {
+  return (
+    <Button
+      style={
+        props.disabled
+          ? {
+              backgroundColor: '#f3f3f3',
+              color: '#afafaf',
+              borderColor: '#f3f3f3',
+            }
+          : {}
+      }
+      {...props}
+    >
+      Protect me
+    </Button>
+  );
+};
+
+export const ButtonBase = (props: ComponentProps<typeof Button>) => {
+  return (
+    <Button
+      sx={
+        true
+          ? {
+              backgroundColor: '#f3',
+              color: '#af',
+              borderColor: '#f3',
+            }
+          : {}
+      }
+      {...props}
+    >
+      <Box sx={{ whiteSpace: 'nowrap' }}>{props.children}</Box>
+    </Button>
   );
 };
